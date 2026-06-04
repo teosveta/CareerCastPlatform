@@ -1,0 +1,13 @@
+# Development Configuration
+environment: development
+debug: true
+
+database:
+  url: "sqlite:///dev.db"
+
+api:
+  host: "localhost"
+  port: 8000
+
+logging:
+  level: DEBUG

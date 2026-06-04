@@ -1,0 +1,13 @@
+# Regression Model Configuration
+salary_prediction:
+  model: "xgboost"
+  features:
+    - skills_count
+    - experience_level
+    - location
+    - company_size
+
+hyperparameters:
+  n_estimators: 100
+  max_depth: 6
+  learning_rate: 0.1

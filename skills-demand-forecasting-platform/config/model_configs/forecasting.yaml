@@ -1,0 +1,16 @@
+# Forecasting Model Configuration
+models:
+  prophet:
+    seasonality_mode: "multiplicative"
+    yearly_seasonality: true
+    weekly_seasonality: false
+
+  arima:
+    max_p: 5
+    max_d: 2
+    max_q: 5
+
+ensemble:
+  weights:
+    prophet: 0.6
+    arima: 0.4

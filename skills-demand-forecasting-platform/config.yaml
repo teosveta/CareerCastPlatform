@@ -1,0 +1,91 @@
+app:
+  name: "Skills Demand Forecasting Platform"
+  version: "1.0.0"
+  debug: true
+
+data:
+  raw_data_path: "data/raw"
+  processed_data_path: "data/processed"
+  unified_data_path: "data/processed/unified"
+  sample_data_path: "data/processed/sample"
+
+  # Dataset priorities for MVP
+  primary_dataset: "linkedin_124k"
+  datasets:
+    linkedin_124k:
+      path: "data/processed/linkedin_124k"
+      has_salary: true
+      priority: 1
+    linkedin_1_3m:
+      path: "data/processed/linkedin_1_3m"
+      has_salary: false
+      priority: 2
+    stackoverflow:
+      path: "data/processed/stackoverflow"
+      has_salary: true
+      priority: 3
+
+nlp:
+  # Skill extraction configuration
+  skill_extraction:
+    method: "hybrid"  # hybrid, rule_based, ml_based
+    confidence_threshold: 0.7
+    max_skills_per_job: 50
+
+  models:
+    spacy_model: "en_core_web_sm"
+    sentence_transformer: "all-MiniLM-L6-v2"
+
+  skill_taxonomy:
+    tech_skills_file: "config/tech_skills.json"
+    soft_skills_file: "config/soft_skills.json"
+
+forecasting:
+  # Time series forecasting settings
+  granularity: "monthly"
+  forecast_horizon: 12  # months
+  models:
+    primary: "prophet"
+    fallback: "arima"
+    ensemble: true
+
+  validation:
+    test_size: 0.2
+    cv_folds: 5
+
+ml_models:
+  salary_prediction:
+    model_type: "xgboost"
+    features: ["skills", "location", "experience", "company_size"]
+    target: "median_salary"
+
+  skill_clustering:
+    algorithm: "kmeans"
+    n_clusters: 25
+    features: ["co_occurrence", "salary_impact", "demand_trend"]
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  timeout: 30
+
+  rate_limiting:
+    requests_per_minute: 100
+    burst_size: 20
+
+database:
+  type: "sqlite"  # sqlite for development, postgresql for production
+  path: "data/database/skills_platform.db"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/app.log"
+  max_size: "10MB"
+  backup_count: 5
+
+dashboard:
+  framework: "streamlit"
+  theme: "dark"
+  cache_ttl: 3600  # seconds

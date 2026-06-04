@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerCast Platform - Skills Demand Forecasting</title>
+
+    <!-- External CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                CareerCast Platform
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                    <li><a href="#tools" class="nav-link">Tools</a></li>
+                    <li><a href="#analytics" class="nav-link">Analytics</a></li>
+                    <li><a href="#api" class="nav-link">API</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1 data-aos="fade-up">AI-Powered Career Intelligence</h1>
+                <p data-aos="fade-up" data-aos-delay="200">
+                    Analyze technology job markets, predict skill demand, and get strategic career guidance
+                </p>
+                <div class="cta-buttons" data-aos="fade-up" data-aos-delay="400">
+                    <a href="#tools" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Get Started
+                    </a>
+                    <a href="#dashboard" class="btn btn-secondary">
+                        <i class="fas fa-chart-bar"></i>
+                        View Dashboard
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="dashboard">
+            <div class="container">
+                <div class="dashboard-header" data-aos="fade-up">
+                    <h2>Market Overview</h2>
+                    <p class="text-secondary">Real-time insights from 124,573+ job postings analyzed</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-header">
+                            <div class="card-icon bg-primary">
+                                <i class="fas fa-users text-white"></i>
+                            </div>
+                            <div class="card-title">Skills Tracked</div>
+                        </div>
+                        <div class="metric-value">2,847</div>
+                        <div class="metric-label">Active Technology Skills</div>
+                        <div class="trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            +127 new this month
+                        </div>
+                    </div>
+
+                    <div class="card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-header">
+                            <div class="card-icon bg-secondary">
+                                <i class="fas fa-chart-line text-white"></i>
+                            </div>
+                            <div class="card-title">Avg Growth Rate</div>
+                        </div>
+                        <div class="metric-value">16.8%</div>
+                        <div class="metric-label">Annual Skill Demand Growth</div>
+                        <div class="trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            +2.3% vs last quarter
+                        </div>
+                    </div>
+
+                    <div class="card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card-header">
+                            <div class="card-icon bg-accent">
+                                <i class="fas fa-briefcase text-white"></i>
+                            </div>
+                            <div class="card-title">Jobs Analyzed</div>
+                        </div>
+                        <div class="metric-value">124,573</div>
+                        <div class="metric-label">Total Job Postings</div>
+                        <div class="trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            +1,205 today
+                        </div>
+                    </div>
+
+                    <div class="card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="card-header">
+                            <div class="card-icon bg-success">
+                                <i class="fas fa-target text-white"></i>
+                            </div>
+                            <div class="card-title">Forecast Accuracy</div>
+                        </div>
+                        <div class="metric-value">87.2%</div>
+                        <div class="metric-label">Prediction Reliability</div>
+                        <div class="trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            +1.1% this quarter
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="dashboard-grid">
+                    <div class="card" data-aos="fade-up">
+                        <h3 class="card-title mb-2">Top Growing Skills</h3>
+                        <div class="chart-container">
+                            <canvas id="skillsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="card-title mb-2">Salary Impact by Skill</h3>
+                        <div class="chart-container">
+                            <canvas id="salaryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <div class="dashboard-header" data-aos="fade-up">
+                    <h2>Platform Features</h2>
+                    <p class="text-secondary">Comprehensive tools for career intelligence and market analysis</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon bg-primary">
+                            <i class="fas fa-brain text-white"></i>
+                        </div>
+                        <h3 class="feature-title">AI-Powered Analysis</h3>
+                        <p class="feature-description">
+                            Advanced machine learning algorithms analyze millions of job postings to extract meaningful insights about skill demand, salary trends, and market opportunities.
+                        </p>
+                    </div>
+
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon bg-secondary">
+                            <i class="fas fa-crystal-ball text-white"></i>
+                        </div>
+                        <h3 class="feature-title">Demand Forecasting</h3>
+                        <p class="feature-description">
+                            Predict future skill demand with 87% accuracy using ensemble forecasting models including Prophet, ARIMA, and advanced time series analysis.
+                        </p>
+                    </div>
+
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon bg-accent">
+                            <i class="fas fa-dollar-sign text-white"></i>
+                        </div>
+                        <h3 class="feature-title">Salary Intelligence</h3>
+                        <p class="feature-description">
+                            Get accurate salary predictions based on skills, location, experience level, and market conditions with confidence intervals and market context.
+                        </p>
+                    </div>
+
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="feature-icon bg-success">
+                            <i class="fas fa-route text-white"></i>
+                        </div>
+                        <h3 class="feature-title">Career Guidance</h3>
+                        <p class="feature-description">
+                            Receive personalized career roadmaps with skill gap analysis, learning recommendations, and ROI calculations for skill development investments.
+                        </p>
+                    </div>
+
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="feature-icon bg-warning">
+                            <i class="fas fa-globe text-white"></i>
+                        </div>
+                        <h3 class="feature-title">Market Intelligence</h3>
+                        <p class="feature-description">
+                            Access comprehensive market analytics including geographic trends, industry insights, skill correlations, and emerging technology identification.
+                        </p>
+                    </div>
+
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="feature-icon bg-error">
+                            <i class="fas fa-rocket text-white"></i>
+                        </div>
+                        <h3 class="feature-title">Real-Time API</h3>
+                        <p class="feature-description">
+                            Integrate our platform with your applications using our high-performance REST API with sub-200ms response times and comprehensive documentation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Tools Section -->
+        <section id="tools" class="tools-section">
+            <div class="container">
+                <div class="dashboard-header" data-aos="fade-up">
+                    <h2>Interactive Tools</h2>
+                    <p class="text-secondary">Try our AI-powered career intelligence tools</p>
+                </div>
+
+                <div class="tool-container" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tool-tabs">
+                        <button class="tab-button active" onclick="switchTab('skills')">
+                            <i class="fas fa-search"></i> Skill Analysis
+                        </button>
+                        <button class="tab-button" onclick="switchTab('salary')">
+                            <i class="fas fa-dollar-sign"></i> Salary Prediction
+                        </button>
+                        <button class="tab-button" onclick="switchTab('career')">
+                            <i class="fas fa-route"></i> Career Roadmap
+                        </button>
+                        <button class="tab-button" onclick="switchTab('forecast')">
+                            <i class="fas fa-chart-line"></i> Demand Forecast
+                        </button>
+                    </div>
+
+                    <!-- Skill Analysis Tab -->
+                    <div id="skills-tab" class="tab-content active">
+                        <h3>Skills Analysis & Extraction</h3>
+                        <p class="text-secondary mb-2">Analyze job descriptions to extract skills and get market insights</p>
+
+                        <div class="form-group">
+                            <label class="form-label">Job Description</label>
+                            <textarea
+                                id="jobDescription"
+                                class="form-input"
+                                rows="4"
+                                placeholder="Paste a job description here to extract skills and analyze market demand..."
+                            ></textarea>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="analyzeSkills()">
+                            <i class="fas fa-search"></i>
+                            Analyze Skills
+                        </button>
+
+                        <div id="skillsResults" class="results hidden">
+                            <h4>Extracted Skills</h4>
+                            <div id="skillsList"></div>
+                        </div>
+                    </div>
+
+                    <!-- Salary Prediction Tab -->
+                    <div id="salary-tab" class="tab-content">
+                        <h3>Salary Prediction</h3>
+                        <p class="text-secondary mb-2">Get accurate salary estimates based on your profile</p>
+
+                        <div class="form-group">
+                            <label class="form-label">Your Skills</label>
+                            <div id="skillsInput" class="skills-input" onclick="focusSkillInput()">
+                                <input
+                                    type="text"
+                                    id="skillInput"
+                                    placeholder="Type a skill and press Enter"
+                                    style="border: none; outline: none; flex: 1; min-width: 150px;"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Experience Level</label>
+                            <select id="experienceLevel" class="form-select">
+                                <option value="Entry Level">Entry Level</option>
+                                <option value="Mid Level" selected>Mid Level</option>
+                                <option value="Senior Level">Senior Level</option>
+                                <option value="Principal Level">Principal Level</option>
+                                <option value="Management">Management</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Location</label>
+                            <select id="location" class="form-select">
+                                <option value="San Francisco, CA">San Francisco, CA</option>
+                                <option value="New York, NY">New York, NY</option>
+                                <option value="Seattle, WA">Seattle, WA</option>
+                                <option value="Austin, TX">Austin, TX</option>
+                                <option value="Remote" selected>Remote</option>
+                                <option value="Chicago, IL">Chicago, IL</option>
+                                <option value="Boston, MA">Boston, MA</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="predictSalary()">
+                            <i class="fas fa-calculator"></i>
+                            Predict Salary
+                        </button>
+
+                        <div id="salaryResults" class="results hidden">
+                            <div id="salaryPrediction"></div>
+                        </div>
+                    </div>
+
+                    <!-- Career Roadmap Tab -->
+                    <div id="career-tab" class="tab-content">
+                        <h3>Career Roadmap</h3>
+                        <p class="text-secondary mb-2">Get personalized career guidance and skill development recommendations</p>
+
+                        <div class="form-group">
+                            <label class="form-label">Current Skills</label>
+                            <div id="currentSkillsInput" class="skills-input" onclick="focusCurrentSkillInput()">
+                                <input
+                                    type="text"
+                                    id="currentSkillInput"
+                                    placeholder="Type your current skills"
+                                    style="border: none; outline: none; flex: 1; min-width: 150px;"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Target Role</label>
+                            <select id="targetRole" class="form-select">
+                                <option value="Data Scientist">Data Scientist</option>
+                                <option value="Full Stack Developer">Full Stack Developer</option>
+                                <option value="DevOps Engineer">DevOps Engineer</option>
+                                <option value="Product Manager">Product Manager</option>
+                                <option value="ML Engineer">ML Engineer</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="generateRoadmap()">
+                            <i class="fas fa-route"></i>
+                            Generate Roadmap
+                        </button>
+
+                        <div id="roadmapResults" class="results hidden">
+                            <div id="roadmapContent"></div>
+                        </div>
+                    </div>
+
+                    <!-- Demand Forecast Tab -->
+                    <div id="forecast-tab" class="tab-content">
+                        <h3>Skill Demand Forecast</h3>
+                        <p class="text-secondary mb-2">See future demand predictions for specific skills</p>
+
+                        <div class="form-group">
+                            <label class="form-label">Select Skills to Forecast</label>
+                            <div id="forecastSkillsInput" class="skills-input" onclick="focusForecastSkillInput()">
+                                <input
+                                    type="text"
+                                    id="forecastSkillInput"
+                                    placeholder="Type skills to forecast"
+                                    style="border: none; outline: none; flex: 1; min-width: 150px;"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Forecast Horizon</label>
+                            <select id="forecastHorizon" class="form-select">
+                                <option value="3">3 months</option>
+                                <option value="6">6 months</option>
+                                <option value="12" selected>12 months</option>
+                                <option value="24">24 months</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="generateForecast()">
+                            <i class="fas fa-chart-line"></i>
+                            Generate Forecast
+                        </button>
+
+                        <div id="forecastResults" class="results hidden">
+                            <div class="chart-container">
+                                <canvas id="forecastChart"></canvas>
+                            </div>
+                            <div id="forecastInsights"></div>
+                        </div>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loading" class="loading hidden">
+                        <div class="spinner"></div>
+                        <p>Processing your request...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="dashboard">
+            <div class="container">
+                <div class="dashboard-header" data-aos="fade-up">
+                    <h2>Market Analytics</h2>
+                    <p class="text-secondary">Deep insights into technology job markets</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card" data-aos="fade-up">
+                        <h3 class="card-title mb-2">Emerging Technologies</h3>
+                        <div id="emergingTechList">
+                            <div class="result-item">
+                                <div>
+                                    <strong>Rust</strong>
+                                    <div class="text-secondary">Systems Programming</div>
+                                </div>
+                                <div class="trend trend-up">
+                                    <i class="fas fa-arrow-up"></i>
+                                    +45.3%
+                                </div>
+                            </div>
+                            <div class="result-item">
+                                <div>
+                                    <strong>Kubernetes</strong>
+                                    <div class="text-secondary">Container Orchestration</div>
+                                </div>
+                                <div class="trend trend-up">
+                                    <i class="fas fa-arrow-up"></i>
+                                    +38.7%
+                                </div>
+                            </div>
+                            <div class="result-item">
+                                <div>
+                                    <strong>GraphQL</strong>
+                                    <div class="text-secondary">API Technology</div>
+                                </div>
+                                <div class="trend trend-up">
+                                    <i class="fas fa-arrow-up"></i>
+                                    +35.2%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="card-title mb-2">Geographic Hotspots</h3>
+                        <div id="geoHotspots">
+                            <div class="result-item">
+                                <div>
+                                    <strong>San Francisco Bay Area</strong>
+                                    <div class="text-secondary">Avg: $165K</div>
+                                </div>
+                                <div class="text-primary">2,847 jobs</div>
+                            </div>
+                            <div class="result-item">
+                                <div>
+                                    <strong>Seattle</strong>
+                                    <div class="text-secondary">Avg: $142K</div>
+                                </div>
+                                <div class="text-primary">1,923 jobs</div>
+                            </div>
+                            <div class="result-item">
+                                <div>
+                                    <strong>Remote</strong>
+                                    <div class="text-secondary">Avg: $128K</div>
+                                </div>
+                                <div class="text-primary">3,156 jobs</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" data-aos="fade-up" data-aos-delay="400">
+                        <h3 class="card-title mb-2">Industry Insights</h3>
+                        <div class="chart-container">
+                            <canvas id="industryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API Section -->
+        <section id="api" class="features">
+            <div class="container">
+                <div class="dashboard-header" data-aos="fade-up">
+                    <h2>Developer API</h2>
+                    <p class="text-secondary">Integrate our AI-powered insights into your applications</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card" data-aos="fade-up">
+                        <div class="feature-icon bg-primary">
+                            <i class="fas fa-code text-white"></i>
+                        </div>
+                        <h3 class="feature-title">RESTful API</h3>
+                        <p class="feature-description">
+                            Access all platform features through our comprehensive REST API with auto-generated documentation and examples.
+                        </p>
+                        <div class="mt-2">
+                            <code style="background: var(--bg-secondary); padding: 0.5rem; border-radius: 0.25rem; display: block;">
+                                GET /api/v1/skills/Python/trends?period=12m
+                            </code>
+                        </div>
+                    </div>
+
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon bg-secondary">
+                            <i class="fas fa-lightning text-white"></i>
+                        </div>
+                        <h3 class="feature-title">High Performance</h3>
+                        <p class="feature-description">
+                            Sub-200ms response times with intelligent caching, rate limiting, and horizontal scaling capabilities.
+                        </p>
+                        <div class="mt-2">
+                            <div class="trend trend-up">
+                                <i class="fas fa-tachometer-alt"></i>
+                                95th percentile: 187ms
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="feature-icon bg-accent">
+                            <i class="fas fa-shield-alt text-white"></i>
+                        </div>
+                        <h3 class="feature-title">Enterprise Ready</h3>
+                        <p class="feature-description">
+                            Production-grade security, authentication, monitoring, and SLA guarantees for mission-critical applications.
+                        </p>
+                        <div class="mt-2">
+                            <div class="trend trend-up">
+                                <i class="fas fa-clock"></i>
+                                99.94% uptime
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- External Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Local Scripts -->
+    <script src="{{ url_for('static', path='/js/main.js') }}"></script>
+</body>
+</html>

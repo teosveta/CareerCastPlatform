@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skills-platform
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: skills-platform
+  template:
+    metadata:
+      labels:
+        app: skills-platform
+    spec:
+      containers:
+      - name: skills-platform
+        image: skills-platform:latest
+        ports:
+        - containerPort: 8000

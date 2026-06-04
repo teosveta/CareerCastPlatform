@@ -1,0 +1,15 @@
+# NLP Configuration
+spacy:
+  model: "en_core_web_sm"
+
+skill_extraction:
+  confidence_threshold: 0.7
+  max_skills_per_job: 20
+
+taxonomy:
+  categories:
+    - programming_languages
+    - frameworks
+    - databases
+    - cloud_platforms
+    - tools
